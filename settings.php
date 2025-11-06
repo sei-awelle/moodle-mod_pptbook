@@ -25,9 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-if ($hassiteconfig) {
+if ($ADMIN->fulltree) {
     // Create the settings page. Add options here if needed in the future.
     $settings = new admin_settingpage('modsettingpptbook', get_string('pluginname', 'mod_pptbook'));
-
-    $ADMIN->add('modsettings', $settings);
 }
+
