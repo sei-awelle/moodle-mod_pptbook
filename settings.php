@@ -25,8 +25,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+
 if ($ADMIN->fulltree) {
-    // Create the settings page. Add options here if needed in the future.
-    $settings = new admin_settingpage('modsettingpptbook', get_string('pluginname', 'mod_pptbook'));
+    $settings->add(new admin_setting_configselect(
+        'pptbook/perpage',
+        get_string('perpage', 'pptbook'),
+        get_string('perpagedesc', 'pptbook'),
+        4,
+        [
+            1 => '1',
+            2 => '2',
+            3 => '3',
+            4 => '4'
+        ]
+    ));
 }
 

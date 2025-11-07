@@ -31,7 +31,6 @@ require_once($CFG->dirroot . '/mod/pptbook/locallib.php');
 
 $id = required_param('id', PARAM_INT);
 $page = optional_param('page', 1, PARAM_INT);
-$perpage = 4;
 
 $cm = get_coursemodule_from_id('pptbook', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
@@ -75,6 +74,8 @@ if ($total === 0) {
 usort($slides, function ($a, $b) {
     return strnatcasecmp($a->get_filename(), $b->get_filename());
 });
+
+$perpage = get_config('pptbook', 'perpage');
 
 $pages   = max(1, (int)ceil($total / $perpage));
 $page    = max(1, min((int)$page, $pages));
@@ -143,6 +144,7 @@ $templatecontext = (object)[
     'nexturl'   => (new moodle_url('/mod/pptbook/view.php', ['id' => $cm->id, 'page' => $page + 1]))->out(false),
     'manageurl' => $manageurl ?: null,
     'manage'    => !empty($manageurl),
+    'perpage'   => $perpage,
 ];
 
 echo $OUTPUT->render_from_template('mod_pptbook/page', $templatecontext);
