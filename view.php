@@ -145,6 +145,7 @@ $templatecontext = (object)[
     'manageurl' => $manageurl ?: null,
     'manage'    => !empty($manageurl),
     'perpage'   => $perpage,
+    'singleitem'=> (count($items) === 1),
 ];
 
 echo $OUTPUT->render_from_template('mod_pptbook/page', $templatecontext);
