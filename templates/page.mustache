@@ -26,12 +26,11 @@
       "nexturl": "https://example.org/mod/pptbook/view.php?id=123&page=3",
       "page": 2,
       "pages": 5,
-      "modalimgsrc": "https://example.org/pluginfile.php/1/mod_pptbook/slides/slide1.png"
+      "modalimgsrc": "https://example.org/pluginfile.php/1/mod_pptbook/slides/slide1.png",
+      "perpage": 4,
     }
 }}
 <div class="pptbook-wrap">
-
-<!-- File: mod/pptbook/templates/page.mustache -->
 
   {{#manage}}
     <div style="display:flex;justify-content:flex-end;margin:0 0 10px 0;">
@@ -40,10 +39,9 @@
   {{/manage}}
 
   <div class="pptbook-book">
-    <div class="pptbook-spine" aria-hidden="true"></div>
     <div class="pptbook-pagewrap">
       <div class="pptbook-page edge-right" id="pptbook-page">
-        <div class="pptbook-grid" id="pptbook-grid">
+        <div class="pptbook-grid pptbook-grid-{{perpage}} {{#singleitem}}pptbook-single{{/singleitem}}">
           {{#items}}
             <figure>
               <a href="{{fullurl}}" class="pptbook-zoom" data-full="{{fullurl}}">
