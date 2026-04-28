@@ -30,9 +30,19 @@ defined('MOODLE_INTERNAL') || die();
  * @return bool
  */
 function xmldb_pptbook_upgrade(int $oldversion): bool {
-    if ($oldversion < 2025100802) {
-        // Future upgrade steps go here.
-        upgrade_mod_savepoint(true, 2025100802, 'pptbook');
+    global $DB;
+
+    if ($oldversion < 2026042802) {
+        $dbman = $DB->get_manager();
+
+        $table = new xmldb_table('pptbook');
+        $field = new xmldb_field('perpage', XMLDB_TYPE_INTEGER, '2', null, XMLDB_NOTNULL, null, '4', 'introformat');
+
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        upgrade_mod_savepoint(true, 2026042802, 'pptbook');
     }
 
     return true;

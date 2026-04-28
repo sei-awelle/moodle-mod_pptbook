@@ -75,7 +75,7 @@ usort($slides, function ($a, $b) {
     return strnatcasecmp($a->get_filename(), $b->get_filename());
 });
 
-$perpage = get_config('pptbook', 'perpage');
+$perpage = !empty($pptbook->perpage) ? (int)$pptbook->perpage : get_config('pptbook', 'perpage');
 
 $pages   = max(1, (int)ceil($total / $perpage));
 $page    = max(1, min((int)$page, $pages));
