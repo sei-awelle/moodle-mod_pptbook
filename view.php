@@ -75,7 +75,12 @@ usort($slides, function ($a, $b) {
     return strnatcasecmp($a->get_filename(), $b->get_filename());
 });
 
-$perpage = get_config('pptbook', 'perpage');
+// The site default arrives from get_config() as a string, or false when it was never saved, so
+// cast and clamp: $perpage is a divisor below and must be a usable int.
+$perpage = !empty($pptbook->perpage) ? (int)$pptbook->perpage : (int)get_config('pptbook', 'perpage');
+if ($perpage < 1 || $perpage > 4) {
+    $perpage = 4;
+}
 
 $pages   = max(1, (int)ceil($total / $perpage));
 $page    = max(1, min((int)$page, $pages));
@@ -145,7 +150,9 @@ $templatecontext = (object)[
     'manageurl' => $manageurl ?: null,
     'manage'    => !empty($manageurl),
     'perpage'   => $perpage,
-    'singleitem'=> (count($items) === 1),
+    'singleitem' => (count($items) === 1),
+    // The centre crease sits at the 50% mark, so it only lines up on an even column count.
+    'hasspine'  => ($perpage === 2 || $perpage === 4),
 ];
 
 echo $OUTPUT->render_from_template('mod_pptbook/page', $templatecontext);

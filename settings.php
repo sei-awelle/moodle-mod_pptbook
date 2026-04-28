@@ -25,7 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-
 if ($ADMIN->fulltree) {
     $settings->add(new admin_setting_configselect(
         'pptbook/perpage',
@@ -36,7 +35,7 @@ if ($ADMIN->fulltree) {
             1 => '1',
             2 => '2',
             3 => '3',
-            4 => '4'
+            4 => '4',
         ]
     ));
 }

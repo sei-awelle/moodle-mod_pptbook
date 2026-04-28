@@ -10,6 +10,7 @@
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" DEFAULT=""/>
         <FIELD NAME="intro" TYPE="text" NOTNULL="false"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="perpage" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="4" COMMENT="Slides per page (1-4)"/>
         <FIELD NAME="captionsjson" TYPE="text" NOTNULL="false" COMMENT="JSON: filename => caption"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>

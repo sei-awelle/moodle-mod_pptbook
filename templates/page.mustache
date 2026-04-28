@@ -28,6 +28,8 @@
       "pages": 5,
       "modalimgsrc": "https://example.org/pluginfile.php/1/mod_pptbook/slides/slide1.png",
       "perpage": 4,
+      "singleitem": false,
+      "hasspine": true
     }
 }}
 <div class="pptbook-wrap">
@@ -39,6 +41,9 @@
   {{/manage}}
 
   <div class="pptbook-book">
+    {{#hasspine}}
+      <div class="pptbook-spine" aria-hidden="true"></div>
+    {{/hasspine}}
     <div class="pptbook-pagewrap">
       <div class="pptbook-page edge-right" id="pptbook-page">
         <div class="pptbook-grid pptbook-grid-{{perpage}} {{#singleitem}}pptbook-single{{/singleitem}}">
