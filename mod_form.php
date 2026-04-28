@@ -63,6 +63,17 @@ class mod_pptbook_mod_form extends moodleform_mod {
         );
         $mform->addHelpButton('slides_filemanager', 'slides', 'mod_pptbook');
 
+        // Slides per page setting.
+        $defaultperpage = get_config('pptbook', 'perpage') ?: 4;
+        $mform->addElement('select', 'perpage', get_string('perpage', 'mod_pptbook'), [
+            1 => '1',
+            2 => '2',
+            3 => '3',
+            4 => '4',
+        ]);
+        $mform->setDefault('perpage', $defaultperpage);
+        $mform->addHelpButton('perpage', 'perpage', 'mod_pptbook');
+
         // Captions JSON (hidden).
         $mform->addElement('hidden', 'captionsjson', '');
         $mform->setType('captionsjson', PARAM_RAW);
