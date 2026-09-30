@@ -36,6 +36,7 @@ $string['next'] = 'Next';
 $string['noimages'] = 'No PNG images have been uploaded yet.';
 $string['noinstances'] = 'There are no PPT Books in this course.';
 $string['page'] = 'Page {$a}';
+$string['pluginadministration'] = 'PPT Book Administration';
 $string['pluginname'] = 'PPT Book';
 $string['pptbook:addinstance'] = 'Add a new PPT Book';
 $string['pptbook:manage'] = 'Manage PPT Book';
