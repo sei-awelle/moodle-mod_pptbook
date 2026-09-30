@@ -60,6 +60,9 @@ function pptbook_add_instance($data, $mform) {
     $data->timecreated = time();
     $data->timemodified = time();
 
+    // Set default perpage if not provided.
+    $data->perpage = !empty($data->perpage) ? (int)$data->perpage : 4;
+
     if (!empty($data->captionsjson) && is_array($data->captionsjson)) {
         $data->captionsjson = json_encode($data->captionsjson, JSON_UNESCAPED_UNICODE);
     } else if (empty($data->captionsjson)) {
@@ -87,6 +90,9 @@ function pptbook_update_instance($data, $mform) {
 
     $data->id = $data->instance;
     $data->timemodified = time();
+
+    // Set default perpage if not provided.
+    $data->perpage = !empty($data->perpage) ? (int)$data->perpage : 4;
 
     if (!empty($data->captionsjson) && is_array($data->captionsjson)) {
         $data->captionsjson = json_encode($data->captionsjson, JSON_UNESCAPED_UNICODE);
