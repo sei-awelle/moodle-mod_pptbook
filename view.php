@@ -31,7 +31,6 @@ require_once($CFG->dirroot . '/mod/pptbook/locallib.php');
 
 $id = required_param('id', PARAM_INT);
 $page = optional_param('page', 1, PARAM_INT);
-$perpage = 4;
 
 $cm = get_coursemodule_from_id('pptbook', $id, 0, false, MUST_EXIST);
 $course = $DB->get_record('course', ['id' => $cm->course], '*', MUST_EXIST);
@@ -75,6 +74,13 @@ if ($total === 0) {
 usort($slides, function ($a, $b) {
     return strnatcasecmp($a->get_filename(), $b->get_filename());
 });
+
+// The site default arrives from get_config() as a string, or false when it was never saved, so
+// cast and clamp: $perpage is a divisor below and must be a usable int.
+$perpage = !empty($pptbook->perpage) ? (int)$pptbook->perpage : (int)get_config('pptbook', 'perpage');
+if ($perpage < 1 || $perpage > 4) {
+    $perpage = 4;
+}
 
 $pages   = max(1, (int)ceil($total / $perpage));
 $page    = max(1, min((int)$page, $pages));
@@ -143,6 +149,10 @@ $templatecontext = (object)[
     'nexturl'   => (new moodle_url('/mod/pptbook/view.php', ['id' => $cm->id, 'page' => $page + 1]))->out(false),
     'manageurl' => $manageurl ?: null,
     'manage'    => !empty($manageurl),
+    'perpage'   => $perpage,
+    'singleitem' => (count($items) === 1),
+    // The centre crease sits at the 50% mark, so it only lines up on an even column count.
+    'hasspine'  => ($perpage === 2 || $perpage === 4),
 ];
 
 echo $OUTPUT->render_from_template('mod_pptbook/page', $templatecontext);
