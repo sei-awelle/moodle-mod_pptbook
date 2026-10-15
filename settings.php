@@ -23,6 +23,21 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
 
-// Moodle creates and registers the activity settings page automatically.
-// Leave $settings unchanged to avoid registering the page twice.
+// Moodle core creates $settings and registers it after this file is included.
+// Add settings to it here; do not call $ADMIN->add() or the page is listed twice.
+if ($ADMIN->fulltree) {
+    $settings->add(new admin_setting_configselect(
+        'pptbook/perpage',
+        get_string('perpage', 'pptbook'),
+        get_string('perpagedesc', 'pptbook'),
+        4,
+        [
+            1 => '1',
+            2 => '2',
+            3 => '3',
+            4 => '4',
+        ]
+    ));
+}
